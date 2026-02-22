@@ -123,6 +123,6 @@ GitHub
 
 ##### Тестовая документация на проекте
 
-- [Чек-лист]()
+- [Чек-лист](https://github.com/Elena-Yakovleva/HospiceApp/blob/main/documentation/Check-list.xlsx)
 - [Тест-кейсы](https://github.com/Elena-Yakovleva/HospiceApp/blob/main/documentation/Cases.xlsx)
 - [Отчет]()

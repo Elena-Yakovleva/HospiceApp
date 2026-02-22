@@ -124,5 +124,5 @@ GitHub
 ##### Тестовая документация на проекте
 
 - [Чек-лист]()
-- [Тест-кейсы]()
+- [Тест-кейсы](https://github.com/Elena-Yakovleva/HospiceApp/blob/main/documentation/Cases.xlsx)
 - [Отчет]()

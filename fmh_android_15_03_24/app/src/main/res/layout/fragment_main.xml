@@ -10,8 +10,7 @@
         android:id="@+id/container_custom_app_bar_include_on_fragment_main"
         layout="@layout/top_custom_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible" />
+        android:layout_height="wrap_content" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/main_swipe_refresh"

@@ -112,8 +112,9 @@
 - Страница Main (Test Case с 13 по 19)
 - Страница OurMission (Test Case с 20 по 25)
 - Страница About (Test Case с 26 по 28)
-- Страница News (Test Case с 29 по 33)
-- Страница Control panel - Creating News (Test Case 42, 53 - 61)
+- Страница News (Test Case с 29 по 41)
+- Страница Control panel - Creating News (Test Case 42 - 52, 53 - 61)
+- Редактирование новости -(Test Case - 62 - 73)
 
 ##### Окружение и инструменты
 

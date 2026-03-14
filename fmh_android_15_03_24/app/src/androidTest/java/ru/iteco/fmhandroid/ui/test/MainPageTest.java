@@ -44,13 +44,13 @@ public class MainPageTest {
 
     @Test
     //Test Case - 13 "Отсутствие перехода на страницу Main через кнопку Menu с главной страницы"
-    public void shouldNotNavigateToMainFromMenu() {
+    public void shouldNotNavigateToMainFromMenuFromMainPage() {
         mainPage.mainPageMenuMainButton();
     }
 
     @Test
     //Test Case - 14 "Переход на страницу News через кнопку Menu"
-    public void shouldOpenNewsPageFromMenuButton() {
+    public void shouldOpenNewsPageFromMenuButtonFromMainPage() {
         mainPage.mainPageMenuNewsButon();
         newsPage.newsPageVisible();
     }
@@ -64,14 +64,14 @@ public class MainPageTest {
 
     @Test
     //Test Case - 16 "Переход на страницу с цитатами через кнопку OurMission с главной страницы."
-    public void shouldOpenOurMissionPage() {
+    public void shouldOpenOurMissionPageFromMainPage() {
         mainPage.mainPageOurMissionButton();
         ourMissionPage.ourMissionPageVisible();
     }
 
     @Test
     //Test Case - 17 "Выход из приложения по кнопке LogOut."
-    public void shouldMainPageLogOut() {
+    public void shouldMainPageLogOutFromMainPage() {
         mainPage.mainPageLogOutButon();
         authPage.authPageVisible();
     }

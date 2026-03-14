@@ -2,6 +2,10 @@ package ru.iteco.fmhandroid.ui.data;
 
 import com.github.javafaker.Faker;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class DataHelper {
 
     private static final Faker faker = new Faker();
@@ -75,15 +79,21 @@ public class DataHelper {
     public static String emptyFieldsError() {
         return ("Login and password cannot be empty");
     }
-
     public static String retryLaterError() {
         return ("Something went wrong. Try again later.");
     }
+    public static String emptyFieldsAddNewsError() {
+        return ("Fill empty fields");
+    }
+    public static String savingFailedError() {return ("Saving failed. Try again later.");}
+
+
     //Выбор номера карточки с цитатой
     public static int getNumberCard() {
         int num  = faker.random().nextInt(8);
         return num;
     }
+    //Карточки с цитатами
     public static String getTitle(int num) {
 
         switch (num) {
@@ -130,6 +140,101 @@ public class DataHelper {
                 return "";
         }
     }
+    //Создание новости
+    //Категория
+    public static String getDefaultCategory(int num) {
+
+        switch (num) {
+            case 0:
+                return "Объявление";
+            case 1:
+                return "День рождения";
+            case 2:
+                return "Зарплата";
+            case 3:
+                return "Профсоюз";
+            case 4:
+                return "Праздник";
+            case 5:
+                return "Массаж";
+            case 6:
+                return "Благодарность";
+            case 7:
+                return "Нужна помощь";
+            default:
+                return "";
+        }
+    }
+    public static String getEmptyCategory() {
+        return ("");
+    }
+    public static String getOwnCategory(String s) {
+        return (s);
+    }
+    //Титул
+    public static String getDefaultTitle(int num) {
+        return DataHelper.getDefaultCategory(num);
+    }
+
+    public static String getEmptyTitle() {
+        return ("");
+    }
+    public static String getOwnTitle() {
+        return ("тест: " + faker.regexify("[0-9]{5}"));
+    }
+    //Дата
+    public static String getOwnDate(String s) {
+        return (s);
+    }
+    public static String getEmptyDate() {
+        return ("");
+    }
+    public static String getLastDate(String s) {
+        return LocalDate.now().minusDays(7).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+    public static String getFutureDate(String s) {
+        return LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
+    public static String currentDate() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+    //Время
+    public static String getOwnTime(String s) {
+        return (s);
+    }
+    public static String getEmptyTime() {
+        return ("");
+    }
+    public static String currentTime() {
+        return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
+    //Текст
+    public static String getOwnDescription(String s) {
+        return (s);
+    }
+    public static String getEmptyDescription() {
+        return ("");
+    }
+    public static String getDescription() {
+        return ("Новость создана " + currentDate() + " в " + currentTime());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

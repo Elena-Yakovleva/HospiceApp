@@ -108,6 +108,13 @@
 
 ##### Автоматизация
 
+- Блок Авторизация (Test Case с 5 по 12)
+- Страница Main (Test Case с 13 по 19)
+- Страница OurMission (Test Case с 20 по 25)
+- Страница About (Test Case с 26 по 28)
+- Страница News (Test Case с 29 по 33)
+- Страница Control panel - Creating News (Test Case 42, 53 - 61)
+
 ##### Окружение и инструменты
 
 MSI i9-12900HX 32ГБ x64 Windows 11 Домашняя

@@ -14,6 +14,8 @@ import ru.iteco.fmhandroid.ui.page.AboutPage;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
+import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
+import ru.iteco.fmhandroid.ui.page.OurMissionPage;
 
 
 @LargeTest
@@ -24,6 +26,8 @@ public class NewsPageTest {
     AuthPage authPage = new AuthPage();
     NewsPage newsPage = new NewsPage();
     AboutPage aboutPage = new AboutPage();
+    OurMissionPage ourMissionPage = new OurMissionPage();
+    ControlPanelPage controlPanelPage = new ControlPanelPage();
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
@@ -48,23 +52,45 @@ public class NewsPageTest {
     @Test
     // Test Case - 29 "Отсутствие перехода на страницу News через кнопку Menu"
 
-    public void shouldNotNavigateToNewsFromMenu() {
+    public void shouldNotNavigateToNewsFromMenuFromNewsPage() {
         newsPage.newsPageMenuNewsButton();
     }
 
     @Test
     // Test Case - 30 "Переход на страницу Main через кнопку Menu"
-    public void shouldOpenMainPageFromMenuButton(){
+    public void shouldOpenMainPageFromMenuButtonFromNewsPage(){
         newsPage.newsPageMenuMainButton();
         mainPage.mainPageVisible();
     }
 
     @Test
     // Test Case - 31 "Переход на страницу About, через кнопку Menu "
-    public void shouldOpenAboutPageFromMenuButton(){
+    public void shouldOpenAboutPageFromMenuButtonFromNewsPage(){
         newsPage.newsPageMenuAboutButton();
         aboutPage.aboutPageVisible();
     }
+    @Test
+    // Test Case - 32 "Переход на страницу OurMission, через кнопку OurMission "
+    public void shouldOpenOurMissionPageFromNewsPage(){
+        newsPage.newsPageOurMissionButton();
+        ourMissionPage.ourMissionPageVisible();
+    }
+
+    @Test
+    // Test Case - 33 "Выход из личного кабинета со страницы News по кнопке LogOut"
+    public void shouldLogOutFromNewsPage(){
+        newsPage.newsPageLogOutButton();
+        authPage.authPageVisible();
+    }
+
+    @Test
+    // Test Case - 42 "Переход в контрольную панель по кнопке Control panel"
+    public void shouldOpenControlPanelNewsPage() {
+        newsPage.newsPageControlPanelButton();
+        controlPanelPage.controlPanelVisible();
+    }
+
+
 
 
 }

@@ -68,13 +68,13 @@ public class OurMissionPageTest {
 
     @Test
     //Test Case - 23 "Кнопка OurMission не активна на странице OurMission"
-    public void shouldOurMissionButtonNotClickable() {
+    public void shouldOurMissionButtonNotClickableFromOurMissionPage() {
         ourMissionPage.ourMissionPageOurMissionButton();
     }
 
     @Test
     //Test Case - 24 "Выход из приложения по кнопке LogOut со страницы OurMission"
-    public void shouldOurMissionPageLogOut() {
+    public void shouldOurMissionPageLogOutFromOurMissionPage() {
         ourMissionPage.ourMissionPageLogOutButton();
         authPage.authPageVisible();
     }

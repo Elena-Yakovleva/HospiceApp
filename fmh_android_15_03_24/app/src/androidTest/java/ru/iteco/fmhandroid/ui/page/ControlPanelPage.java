@@ -6,38 +6,24 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.allOf;
 
 import static ru.iteco.fmhandroid.ui.data.Utils.waitDisplayed;
 
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.hamcrest.TypeSafeMatcher;
-
 import ru.iteco.fmhandroid.R;
-import ru.iteco.fmhandroid.ui.data.DataHelper;
-import ru.iteco.fmhandroid.ui.data.Utils;
+
 
 public class ControlPanelPage {
     // Элементы страницы

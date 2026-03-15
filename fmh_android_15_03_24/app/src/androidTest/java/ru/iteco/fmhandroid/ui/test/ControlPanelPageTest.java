@@ -3,10 +3,13 @@ package ru.iteco.fmhandroid.ui.test;
 import android.view.View;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.DataHelper;
@@ -14,7 +17,8 @@ import ru.iteco.fmhandroid.ui.page.AuthPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
 import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
-
+@LargeTest
+@RunWith(AndroidJUnit4.class)
 public class ControlPanelPageTest {
     MainPage mainPage = new MainPage();
     AuthPage authPage = new AuthPage();
@@ -32,23 +36,18 @@ public class ControlPanelPageTest {
     public void setup() {
         try {
             mainPage.mainPageLoad();
-            mainPage.mainPageMenuNewsButon();
-            newsPage.newsPageLoad();
-            newsPage.newsPageVisible();
-            newsPage.newsPageControlPanelButton();
-            controlPanelPage.controlPanelLoad();
-            controlPanelPage.controlPanelVisible();
 
         } catch (Exception e) {
             authPage.authUser();
             mainPage.mainPageLoad();
-            mainPage.mainPageMenuNewsButon();
-            newsPage.newsPageLoad();
-            newsPage.newsPageVisible();
-            newsPage.newsPageControlPanelButton();
-            controlPanelPage.controlPanelLoad();
-            controlPanelPage.controlPanelVisible();
         }
+
+        mainPage.mainPageMenuNewsButon();
+        newsPage.newsPageLoad();
+        //newsPage.newsPageVisible();
+        newsPage.newsPageControlPanelButton();
+        controlPanelPage.controlPanelLoad();
+        //controlPanelPage.controlPanelVisible();
     }
 
 

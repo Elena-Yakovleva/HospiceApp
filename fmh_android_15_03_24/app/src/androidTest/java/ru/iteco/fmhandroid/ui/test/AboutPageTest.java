@@ -36,14 +36,12 @@ public class AboutPageTest {
     public void setup(){
         try {
             mainPage.mainPageLoad();
-            mainPage.mainPageMenuAboutButon();
-            aboutPage.aboutPageVisible();
         } catch (Exception e) {
             authPage.authUser();
-            mainPage.mainPageMenuAboutButon();
-            aboutPage.aboutPageVisible();
-
+            mainPage.mainPageLoad();
         }
+        mainPage.mainPageMenuAboutButon();
+        aboutPage.aboutPageVisible();
     }
 
     @Test

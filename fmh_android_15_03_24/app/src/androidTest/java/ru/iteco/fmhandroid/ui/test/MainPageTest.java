@@ -38,8 +38,8 @@ public class MainPageTest {
         } catch (Exception e) {
             authPage.authUser();
             mainPage.mainPageLoad();
-            mainPage.mainPageVisible();
         }
+        mainPage.mainPageVisible();
     }
 
     @Test

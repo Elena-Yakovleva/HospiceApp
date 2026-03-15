@@ -37,16 +37,13 @@ public class NewsPageTest {
     public void setup() {
         try {
             mainPage.mainPageLoad();
-            mainPage.mainPageMenuNewsButon();
-            newsPage.newsPageLoad();
-            newsPage.newsPageVisible();
         } catch (Exception e) {
             authPage.authUser();
-            mainPage.mainPageLoad();
-            mainPage.mainPageMenuNewsButon();
-            newsPage.newsPageLoad();
-            newsPage.newsPageVisible();
+            mainPage.mainPageLoad();;
         }
+        mainPage.mainPageMenuNewsButon();
+        newsPage.newsPageLoad();
+        newsPage.newsPageVisible();
     }
 
     @Test

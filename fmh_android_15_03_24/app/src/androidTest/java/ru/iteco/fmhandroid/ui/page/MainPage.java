@@ -6,16 +6,11 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
+import androidx.test.espresso.ViewInteraction;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.not;
-
-import androidx.test.espresso.ViewInteraction;
-
-import org.hamcrest.Matchers;
 
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.data.Utils;

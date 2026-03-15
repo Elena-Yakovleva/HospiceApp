@@ -35,14 +35,12 @@ public class OurMissionPageTest {
     public void setup() {
         try {
             mainPage.mainPageLoad();
-            mainPage.mainPageOurMissionButton();
-            ourMissionPage.ourMissionPageVisible();
         } catch (Exception e) {
             authPage.authUser();
-            mainPage.mainPageOurMissionButton();
-            ourMissionPage.ourMissionPageVisible();
-
+            mainPage.mainPageLoad();
         }
+        mainPage.mainPageOurMissionButton();
+        ourMissionPage.ourMissionPageVisible();
     }
 
     @Test

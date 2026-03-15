@@ -44,22 +44,23 @@ public class EditNewsTest {
         }
         mainPage.mainPageMenuNewsButon();
         newsPage.newsPageLoad();
-        //newsPage.newsPageVisible();
         newsPage.newsPageControlPanelButton();
         controlPanelPage.controlPanelLoad();
-        //controlPanelPage.controlPanelVisible();
+
     }
 
     @Test
-    //Test Case  "
+    //Test Case 73 "Удалить новость"
     public void shouldDeleteNews() {
         int position = DataHelper.getNumberCard();
+        String title = DataHelper.getOwnTitle();
         controlPanelPage.addNews(DataHelper.getDefaultCategory(position),
-                DataHelper.getOwnTitle(),
+                title,
                 DataHelper.currentDate(),
                 DataHelper.currentTime(),
                 DataHelper.getDescription());
         controlPanelPage.saveAddNews();
-        editNews.deleteNews(DataHelper.getOwnTitle());
+        controlPanelPage.controlPanelLoad();
+        editNews.deleteNews(title);
     }
 }

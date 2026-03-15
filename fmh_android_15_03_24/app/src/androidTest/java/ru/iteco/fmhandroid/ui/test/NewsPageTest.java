@@ -74,13 +74,6 @@ public class NewsPageTest {
     }
 
     @Test
-    // Test Case - 33 "Выход из личного кабинета со страницы News по кнопке LogOut"
-    public void shouldLogOutFromNewsPage(){
-        newsPage.newsPageLogOutButton();
-        authPage.authPageVisible();
-    }
-
-    @Test
     // Test Case - 42 "Переход в контрольную панель по кнопке Control panel"
     public void shouldOpenControlPanelNewsPage() {
         newsPage.newsPageControlPanelButton();

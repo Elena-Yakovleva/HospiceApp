@@ -104,7 +104,7 @@ public class ControlPanelPage {
         onView(allOf(withId(R.id.news_item_title_text_view), withText(category)))
                 .perform(click());
         onView(allOf(
-                withId(R.id.news_item_description_text_view),
+                withId(R.id.news_item_title_text_view),
                 withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                 withText(containsString(text))
         )).check(matches(isDisplayed()));

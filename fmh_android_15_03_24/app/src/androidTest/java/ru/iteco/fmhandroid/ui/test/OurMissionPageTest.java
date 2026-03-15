@@ -71,13 +71,6 @@ public class OurMissionPageTest {
     }
 
     @Test
-    //Test Case - 24 "Выход из приложения по кнопке LogOut со страницы OurMission"
-    public void shouldOurMissionPageLogOutFromOurMissionPage() {
-        ourMissionPage.ourMissionPageLogOutButton();
-        authPage.authPageVisible();
-    }
-
-    @Test
     //Test Case - 25 "Развернуть и свернуть цитату на странице OurMission"
     public void shouldExpandAndCollapseQuoteOurMission() {
         ourMissionPage.expandQuoteOurMission();

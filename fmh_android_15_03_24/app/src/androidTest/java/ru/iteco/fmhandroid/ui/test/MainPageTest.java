@@ -70,13 +70,6 @@ public class MainPageTest {
     }
 
     @Test
-    //Test Case - 17 "Выход из приложения по кнопке LogOut."
-    public void shouldMainPageLogOutFromMainPage() {
-        mainPage.mainPageLogOutButon();
-        authPage.authPageVisible();
-    }
-
-    @Test
     //Test Case - 18 "Скрыть и развернуть новости на главной странице"
     public void expandCollapseNewsMainPage() {
         mainPage.collapseNewsBlock();

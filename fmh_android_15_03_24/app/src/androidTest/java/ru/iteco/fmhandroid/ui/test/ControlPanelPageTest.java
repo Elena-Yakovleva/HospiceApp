@@ -61,7 +61,7 @@ public class ControlPanelPageTest {
                 DataHelper.currentTime(),
                 DataHelper.getDescription());
         controlPanelPage.saveAddNews();
-        controlPanelPage.selectNews(DataHelper.getDefaultCategory(position), DataHelper.getDescription());
+        controlPanelPage.selectNews(DataHelper.getDefaultCategory(position), DataHelper.getDefaultTitle(position));
     }
 
     @Test

@@ -183,17 +183,17 @@ public class DataHelper {
         return ("тест: " + faker.regexify("[0-9]{5}"));
     }
     //Дата
-    public static String getOwnDate(String s) {
-        return (s);
+    public static String getOwnDate(int num, int num2) {
+        return LocalDate.now().plusDays(num).minusDays(num2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
     public static String getEmptyDate() {
         return ("");
     }
-    public static String getLastDate(String s) {
-        return LocalDate.now().minusDays(7).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    public static String getLastDate(int num) {
+        return LocalDate.now().minusDays(num).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
-    public static String getFutureDate(String s) {
-        return LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    public static String getFutureDate(int num) {
+        return LocalDate.now().plusDays(num).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     public static String currentDate() {
@@ -209,6 +209,9 @@ public class DataHelper {
     public static String currentTime() {
         return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
     }
+    public static String futureTime(int num) {
+        return LocalTime.now().plusHours(num).format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
     //Текст
     public static String getOwnDescription(String s) {
         return (s);
@@ -218,6 +221,11 @@ public class DataHelper {
     }
     public static String getDescription() {
         return ("Новость создана " + currentDate() + " в " + currentTime());
+    }
+
+    //Изменение выбранного блока
+    public static String changeText(String text) {
+        return (text);
     }
 
 

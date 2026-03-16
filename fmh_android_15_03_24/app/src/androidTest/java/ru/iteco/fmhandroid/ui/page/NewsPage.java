@@ -68,23 +68,12 @@ public class NewsPage {
         return new AuthPage();
     }
 
-    public ControlPanelPage newsPageControlPanelButton() {
+    public CreateNewsPage newsPageControlPanelButton() {
         controlPanelButton.perform(click());
-        return new ControlPanelPage();
+        return new CreateNewsPage();
     }
 
 }
 
-
-
-/*
-    // Открытие новости
-    public void newsCardOpen() {
-        onView(withId(R.id.news_list_recycler_view)).perform(actionOnItemAtPosition(0, click()));
-        onView(allOf(withId(R.id.news_item_description_text_view), isCompletelyDisplayed()))
-               .check(matches(isDisplayed()));
-    //
-    }
-*/
 
 

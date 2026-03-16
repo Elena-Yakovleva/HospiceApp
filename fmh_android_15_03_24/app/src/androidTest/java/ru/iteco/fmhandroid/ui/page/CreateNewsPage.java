@@ -8,10 +8,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.allOf;
 
 import static ru.iteco.fmhandroid.ui.data.Utils.waitDisplayed;
@@ -19,13 +17,12 @@ import static ru.iteco.fmhandroid.ui.data.Utils.waitDisplayed;
 import android.view.View;
 
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.matcher.ViewMatchers;
 
 import org.hamcrest.Matchers;
 import ru.iteco.fmhandroid.R;
 
 
-public class ControlPanelPage {
+public class CreateNewsPage {
     // Элементы страницы
     private final ViewInteraction title = onView(withText("Control panel"));
     private final ViewInteraction addNewsButton = onView(allOf(withId(R.id.add_news_image_view), isDisplayed()));
@@ -46,6 +43,7 @@ public class ControlPanelPage {
     private final ViewInteraction cancelButton = onView(withId(R.id.cancel_button));
     private final ViewInteraction cancelButtonCancel = onView(allOf(withId(android.R.id.button2), withText("CANCEL")));
     private final ViewInteraction cancelButtonOk = onView(allOf(withId(android.R.id.button1), withText("OK")));
+
 
     private View decorView;
 
@@ -100,15 +98,6 @@ public class ControlPanelPage {
                 .check(matches(isDisplayed()));
     }
 
-    public void selectNews(String category, String text) {
-        onView(allOf(withId(R.id.news_item_title_text_view), withText(category)))
-                .perform(click());
-        onView(allOf(
-                withId(R.id.news_item_title_text_view),
-                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
-                withText(containsString(text))
-        )).check(matches(isDisplayed()));
-    }
 
 
 

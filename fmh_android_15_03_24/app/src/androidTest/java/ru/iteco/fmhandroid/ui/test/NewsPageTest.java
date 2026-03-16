@@ -14,7 +14,7 @@ import ru.iteco.fmhandroid.ui.page.AboutPage;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
-import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
+import ru.iteco.fmhandroid.ui.page.CreateNewsPage;
 import ru.iteco.fmhandroid.ui.page.OurMissionPage;
 
 
@@ -27,7 +27,7 @@ public class NewsPageTest {
     NewsPage newsPage = new NewsPage();
     AboutPage aboutPage = new AboutPage();
     OurMissionPage ourMissionPage = new OurMissionPage();
-    ControlPanelPage controlPanelPage = new ControlPanelPage();
+    CreateNewsPage createNewsPage = new CreateNewsPage();
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
@@ -77,7 +77,7 @@ public class NewsPageTest {
     // Test Case - 42 "Переход в контрольную панель по кнопке Control panel"
     public void shouldOpenControlPanelNewsPage() {
         newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
+        createNewsPage.controlPanelVisible();
     }
 
 

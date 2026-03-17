@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.DataHelper;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
+import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
 import ru.iteco.fmhandroid.ui.page.EditNewsPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
@@ -25,7 +26,7 @@ public class CreateNewsPageTest {
     AuthPage authPage = new AuthPage();
     NewsPage newsPage = new NewsPage();
     CreateNewsPage createNewsPage = new CreateNewsPage();
-    EditNewsPage editNewsPage = new EditNewsPage();
+    ControlPanelPage controlPanelPage = new ControlPanelPage();
 
     private View decorView;
 
@@ -56,13 +57,14 @@ public class CreateNewsPageTest {
     //Test Case 53 "Создание новости с полями заполненными валидными данными"
     public void shouldAddNews() {
         int position = DataHelper.getNumberCard();
+
         createNewsPage.addNews(DataHelper.getDefaultCategory(position),
                 DataHelper.getDefaultTitle(position),
                 DataHelper.currentDate(),
                 DataHelper.currentTime(),
                 DataHelper.getDescription());
         createNewsPage.saveAddNews();
-        editNewsPage.selectNews(DataHelper.getDefaultTitle(position));
+        newsPage.selectNews(DataHelper.getDefaultTitle(position));
     }
 
     @Test

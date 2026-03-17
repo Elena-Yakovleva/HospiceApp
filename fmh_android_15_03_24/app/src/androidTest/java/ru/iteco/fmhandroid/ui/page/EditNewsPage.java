@@ -27,11 +27,8 @@ import ru.iteco.fmhandroid.R;
 
 public class EditNewsPage {
 
-    CreateNewsPage createNewsPage = new CreateNewsPage();
-
     //Элементы страницы
     private static final Matcher<View> deleteButton = withId(R.id.delete_news_item_image_view);
-    private static final Matcher<View> controlPanelNewsTitle = withId(R.id.news_item_title_text_view);
     private static final Matcher<View> editButton = withId(R.id.edit_news_item_image_view);
 
     // Элементы полей формы новостей
@@ -46,20 +43,9 @@ public class EditNewsPage {
     private final ViewInteraction cancelButtonCancel = onView(allOf(withId(android.R.id.button2), withText("CANCEL")));
     private final ViewInteraction cancelButtonOk = onView(allOf(withId(android.R.id.button1), withText("OK")));
 
-    private final String statusNotActive = "NOT ACTIVE";
-
-    private final String statusActive = "ACTIVE";
-
-
     private View decorView;
 
 
-    public void selectNews(String string) {
-        onView(allOf(controlPanelNewsTitle,
-                withText(string)))
-                .check(matches(isDisplayed()))
-                .perform(click());
-    }
     public void deleteNewsButton(String string) {
         //удаляем новость
         onView(allOf(deleteButton, withContentDescription("News delete button"),
@@ -110,14 +96,6 @@ public class EditNewsPage {
         switcher.perform(click());
         saveButton.perform(scrollTo(), click());
     }
-
-    public void checkStatus(String string, String status) {
-        onView(allOf(controlPanelNewsTitle,
-                withText(string),
-                hasSibling(withText(status)))).check(matches(isDisplayed()));
-    }
-
-
 
     //Проверка текста ошибки
     public void errorTextMessage(String text) {

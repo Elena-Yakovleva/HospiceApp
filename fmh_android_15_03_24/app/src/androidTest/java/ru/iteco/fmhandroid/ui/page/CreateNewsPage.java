@@ -24,7 +24,7 @@ import ru.iteco.fmhandroid.R;
 
 public class CreateNewsPage {
     // Элементы страницы
-    private final ViewInteraction title = onView(withText("Control panel"));
+
     private final ViewInteraction addNewsButton = onView(allOf(withId(R.id.add_news_image_view), isDisplayed()));
 
     // Элементы формы добавления новости
@@ -53,9 +53,7 @@ public class CreateNewsPage {
     }
 
     // Видимость элементов
-    public void controlPanelVisible() {
-        title.check(matches(isDisplayed()));
-    }
+
     public void creatingNewsVisible() {
         fieldCategory.check(matches(isDisplayed()));
         fieldTitle.check(matches(isDisplayed()));

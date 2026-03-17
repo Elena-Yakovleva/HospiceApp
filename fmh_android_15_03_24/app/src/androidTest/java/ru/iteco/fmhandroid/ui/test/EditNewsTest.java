@@ -2,6 +2,7 @@ package ru.iteco.fmhandroid.ui.test;
 
 import static ru.iteco.fmhandroid.ui.data.DataHelper.savingFailedError;
 
+import android.service.controls.Control;
 import android.view.View;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -17,6 +18,7 @@ import org.junit.runner.RunWith;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.DataHelper;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
+import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
 import ru.iteco.fmhandroid.ui.page.CreateNewsPage;
 import ru.iteco.fmhandroid.ui.page.EditNewsPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
@@ -29,6 +31,7 @@ public class EditNewsTest {
     NewsPage newsPage = new NewsPage();
     CreateNewsPage createNewsPage = new CreateNewsPage();
     EditNewsPage editNews = new EditNewsPage();
+    ControlPanelPage controlPanelPage = new ControlPanelPage();
     private View decorView;
 
 
@@ -70,7 +73,7 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldCategory(), category);
-        editNews.selectNews(title);
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
     @Test
@@ -109,7 +112,7 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldTitle(), title2);
-        editNews.selectNews(title2);
+        newsPage.selectNews(title2);
         editNews.deleteNewsButton(title2);
     }
     @Test
@@ -126,7 +129,7 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldDate(), DataHelper.getFutureDate(5));
-        editNews.selectNews(title);
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 
@@ -146,7 +149,7 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldDate(), newDate);
-        editNews.selectNews(title);
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 
@@ -166,7 +169,7 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldTime(), newTime);
-        editNews.selectNews(title);
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
     @Test
@@ -184,7 +187,7 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldDescription(),  "текст изменен " + DataHelper.currentTime());
-        editNews.selectNews(title);
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
     @Test
@@ -202,8 +205,8 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeStatus();
-        editNews.checkStatus(title,"NOT ACTIVE");
-        editNews.selectNews(title);
+        newsPage.checkStatus(title,"NOT ACTIVE");
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
     @Test
@@ -221,11 +224,11 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeStatus();
-        editNews.checkStatus(title,"NOT ACTIVE");
+        newsPage.checkStatus(title,"NOT ACTIVE");
         editNews.editNewsButton(title);
         editNews.changeStatus();
-        editNews.checkStatus(title,"ACTIVE");
-        editNews.selectNews(title);
+        newsPage.checkStatus(title,"ACTIVE");
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 
@@ -245,7 +248,7 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.cancelChangeIfFieldInNewsForm(editNews.fieldTitle(),title2);
-        editNews.selectNews(title);
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
 
     }
@@ -262,7 +265,7 @@ public class EditNewsTest {
                 DataHelper.getDescription());
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
-        editNews.selectNews(title);
+        newsPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 }

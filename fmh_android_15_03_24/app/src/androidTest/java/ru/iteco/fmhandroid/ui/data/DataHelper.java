@@ -86,6 +86,7 @@ public class DataHelper {
         return ("Fill empty fields");
     }
     public static String savingFailedError() {return ("Saving failed. Try again later.");}
+    public static String wrondPeriodError() {return ("Wrong period");}
 
 
     //Выбор номера карточки с цитатой
@@ -213,9 +214,7 @@ public class DataHelper {
         return LocalTime.now().plusHours(num).format(DateTimeFormatter.ofPattern("HH:mm"));
     }
     //Текст
-    public static String getOwnDescription(String s) {
-        return (s);
-    }
+
     public static String getEmptyDescription() {
         return ("");
     }
@@ -223,10 +222,6 @@ public class DataHelper {
         return ("Новость создана " + currentDate() + " в " + currentTime());
     }
 
-    //Изменение выбранного блока
-    public static String changeText(String text) {
-        return (text);
-    }
 
 
 

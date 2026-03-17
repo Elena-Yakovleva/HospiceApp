@@ -56,7 +56,8 @@ public class EditNewsPage {
 
     public void selectNews(String string) {
         onView(allOf(controlPanelNewsTitle,
-                withText(string))).check(matches(isDisplayed()))
+                withText(string)))
+                .check(matches(isDisplayed()))
                 .perform(click());
     }
     public void deleteNewsButton(String string) {

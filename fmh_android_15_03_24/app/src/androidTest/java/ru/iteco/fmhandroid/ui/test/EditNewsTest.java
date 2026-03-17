@@ -8,6 +8,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,6 +52,8 @@ public class EditNewsTest {
 
     }
 
+
+
     @Test
     //Test Case 62 "Изменить категорию публикации на доступную из списка по умолчанию"
     public void shouldEditingNewsCategory() {
@@ -67,9 +70,11 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldCategory(), category);
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
     }
     @Test
-    //Test Case 63 "Изменить категорию публикации на доступную из списка по умолчанию"
+    //Test Case 63 "Изменить категорию публикации на свою"
     public void shouldNotEditingNewsCategoryToOurOwnText() {
         int position = DataHelper.getNumberCard();
         String title = DataHelper.getOwnTitle();
@@ -85,6 +90,7 @@ public class EditNewsTest {
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldCategory(), category);
         editNews.errorTextMessage(savingFailedError());
+
     }
 
     @Test
@@ -92,7 +98,7 @@ public class EditNewsTest {
     public void shouldEditingNewsTitle() {
         int position = DataHelper.getNumberCard();
         String title = DataHelper.getOwnTitle();
-        String title2 = DataHelper.getDefaultCategory(position) + " - " + DataHelper.getOwnTitle();
+        String title2 = "титул изменен на: " + DataHelper.getOwnTitle();
 
         createNewsPage.addNews(DataHelper.getDefaultCategory(position),
                 title,
@@ -103,12 +109,14 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldTitle(), title2);
+        editNews.selectNews(title2);
+        editNews.deleteNewsButton(title2);
     }
     @Test
     //Test Case 65 "Изменить дату публикации на более позднюю от указанной"
     public void shouldEditingNewsDateAnFutureDate() {
         int position = DataHelper.getNumberCard();
-        String title = DataHelper.getDefaultCategory(position) + " " + DataHelper.currentDate();
+        String title = DataHelper.getOwnTitle() + " " + DataHelper.currentDate();
         createNewsPage.addNews(DataHelper.getDefaultCategory(position),
                 title,
                 DataHelper.currentDate(),
@@ -118,13 +126,16 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldDate(), DataHelper.getFutureDate(5));
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
     }
 
     @Test
     //Test Case 66 "Изменить дату публикации на более раннюю от указанной "
     public void shouldEditingNewsDateAnLastDate() {
         int position = DataHelper.getNumberCard();
-        String title = DataHelper.getDefaultCategory(position) + " " + DataHelper.getFutureDate(5);
+        String title =  DataHelper.getOwnTitle() + " " + DataHelper.currentDate();
+        String newDate = DataHelper.getOwnDate(5,3);
 
         createNewsPage.addNews(DataHelper.getDefaultCategory(position),
                 title,
@@ -134,14 +145,17 @@ public class EditNewsTest {
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
-        editNews.changeIfFieldInNewsForm(editNews.fieldDate(), DataHelper.getOwnDate(5,3));
+        editNews.changeIfFieldInNewsForm(editNews.fieldDate(), newDate);
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
     }
 
     @Test
     //Test Case 68 "Изменить время публикации на будущее"
     public void settingFutureTimeForNews() {
         int position = DataHelper.getNumberCard();
-        String title = DataHelper.getDefaultCategory(position) + " " + DataHelper.currentTime();
+        String title = DataHelper.getOwnTitle() + " " + DataHelper.currentTime();
+        String newTime = DataHelper.futureTime(5);
 
         createNewsPage.addNews(DataHelper.getDefaultCategory(position),
                 title,
@@ -151,13 +165,15 @@ public class EditNewsTest {
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
-        editNews.changeIfFieldInNewsForm(editNews.fieldTime(), DataHelper.futureTime(5));
+        editNews.changeIfFieldInNewsForm(editNews.fieldTime(), newTime);
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
     }
     @Test
     //Test Case 69 "Изменить текст публикации"
     public void shouldEditingNewsDescription() {
         int position = DataHelper.getNumberCard();
-        String title = DataHelper.getDefaultCategory(position) + " " + DataHelper.currentDate();
+        String title = DataHelper.getOwnTitle();
 
         createNewsPage.addNews(DataHelper.getDefaultCategory(position),
                 title,
@@ -168,6 +184,8 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldDescription(),  "текст изменен " + DataHelper.currentTime());
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
     }
     @Test
     //Test Case 70 "Изменить статус публикации на «Not active"
@@ -185,6 +203,8 @@ public class EditNewsTest {
         editNews.editNewsButton(title);
         editNews.changeStatus();
         editNews.checkStatus(title,"NOT ACTIVE");
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
     }
     @Test
     //Test Case 71 "Изменить статус публикации на «Аctive»"
@@ -205,6 +225,8 @@ public class EditNewsTest {
         editNews.editNewsButton(title);
         editNews.changeStatus();
         editNews.checkStatus(title,"ACTIVE");
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
     }
 
     @Test
@@ -212,7 +234,7 @@ public class EditNewsTest {
     public void cancelButtonShouldNotSaveChanges() {
         int position = DataHelper.getNumberCard();
         String title = DataHelper.getOwnTitle();
-        String title2 = DataHelper.getDefaultCategory(position) + " - " + DataHelper.getOwnTitle();
+        String title2 = DataHelper.getOwnTitle() + " " + DataHelper.currentDate();
 
         createNewsPage.addNews(DataHelper.getDefaultCategory(position),
                 title,
@@ -223,6 +245,8 @@ public class EditNewsTest {
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.cancelChangeIfFieldInNewsForm(editNews.fieldTitle(),title2);
+        editNews.selectNews(title);
+        editNews.deleteNewsButton(title);
 
     }
 

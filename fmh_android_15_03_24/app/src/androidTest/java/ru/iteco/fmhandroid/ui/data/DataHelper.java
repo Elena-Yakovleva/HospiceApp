@@ -180,7 +180,7 @@ public class DataHelper {
         return ("");
     }
     public static String getOwnTitle() {
-        return ("тест: " + faker.regexify("[0-9]{5}"));
+        return ("тест: " + faker.regexify("[a-z]{5}[0-9]{3}[a-z]{3}"));
     }
     //Дата
     public static String getOwnDate(int num, int num2) {

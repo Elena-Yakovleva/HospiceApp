@@ -43,7 +43,6 @@ public class OurMissionPage {
 
     // Проверка видимости элементов
     public void ourMissionPageVisible() {
-
         title.check(matches(isDisplayed()));
     }
 
@@ -52,17 +51,19 @@ public class OurMissionPage {
         appBarPage.MenuMainButton();
         return new MainPage();
     }
+
     public NewsPage ourMissionPageMenuNewsButton() {
         appBarPage.MenuNewsButton();
         return new NewsPage();
     }
+
     public AboutPage ourMissionPageMenuAboutButton() {
         appBarPage.MenuAboutButton();
         return new AboutPage();
     }
 
     // Цитаты
-    public  void ourMissionPageOurMissionButton() {
+    public void ourMissionPageOurMissionButton() {
         ourMissionButton.check(matches(isDisplayed()));
         ourMissionButton.check(matches(not(isClickable())));
     }
@@ -88,6 +89,7 @@ public class OurMissionPage {
                 withText(containsString(DataHelper.getQuote(position)))
         )).check(matches(isDisplayed()));
     }
+
     public void collapseQuoteOurMission() {
         card.perform(actionOnItemAtPosition(position, click()));
         // Проверяем невидимость элемента при свернутой цитате

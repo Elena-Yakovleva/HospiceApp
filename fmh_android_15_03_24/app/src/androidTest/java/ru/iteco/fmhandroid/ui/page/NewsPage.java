@@ -6,7 +6,6 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
@@ -23,6 +22,7 @@ import android.view.View;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.ViewMatchers;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
@@ -36,21 +36,20 @@ public class NewsPage {
     private final ViewInteraction title = onView(withText("News"));
     private final ViewInteraction menuButton = onView(withId(R.id.main_menu_image_button));
     private final ViewInteraction menuNewsButton = onView(allOf(withId(android.R.id.title), withText("News"), isDisplayed()));
+    private static final Matcher<View> newsTitle = withId(R.id.news_item_title_text_view);
+    private static final Matcher<View> newsCard = withId(R.id.news_item_material_card_view);
+    private static final Matcher<View> newsDescription = withId(R.id.news_item_description_text_view);
     // Действия с новостями
     private final ViewInteraction sortButton = onView(withId(R.id.sort_news_material_button));
     private final ViewInteraction filterButton = onView(withId(R.id.filter_news_material_button));
     private final ViewInteraction controlPanelButton = onView(withId(R.id.edit_news_material_button));
-    // Элементы новости
-    private static final Matcher<View> newsTitle = withId(R.id.news_item_title_text_view);
-    private static final Matcher<View> newsCard = withId(R.id.news_item_material_card_view);
-    private static final Matcher<View> newsDescription = withId(R.id.news_item_description_text_view);
-    //Элементы фильтра
+
+    //Фильтр
     private static final ViewInteraction filterCategoryField = onView(withId(R.id.news_item_category_text_auto_complete_text_view));
     private static final ViewInteraction filterStartDate = onView(withId(R.id.news_item_publish_date_start_text_input_edit_text));
     private static final ViewInteraction filterEndDate = onView(withId(R.id.news_item_publish_date_end_text_input_edit_text));
     private static final ViewInteraction saveFilterButton = onView(withId(R.id.filter_button));
     private static final ViewInteraction cancelFilterButton = onView(withId(R.id.cancel_button));
-
     private View decorView;
 
     // Проверка загрузки страницы
@@ -97,21 +96,15 @@ public class NewsPage {
         return new CreateNewsPage();
     }
 
-
-    public void selectNews(String string) {
-        onView(allOf(newsTitle,
+    public void selectNewsInNewsPage(String string) {
+        onView(Matchers.allOf(newsTitle,
                 withText(string)))
                 .check(matches(isDisplayed()))
                 .perform(click());
     }
-    public void checkStatus(String string, String status) {
-        onView(allOf(newsTitle,
-                withText(string),
-                hasSibling(withText(status)))).check(matches(isDisplayed()));
-    }
 
-    public void expandDescription(String title, String description) {
-        onView(allOf(newsCard,
+    public void expandDescriptionNews(String title, String description) {
+        onView(Matchers.allOf(newsCard,
                 hasDescendant(Matchers.allOf(newsTitle,
                         withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                         withText(title))),
@@ -120,10 +113,10 @@ public class NewsPage {
                         withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                         withText(containsString(description))))))
                 .check(matches(isDisplayed()));
-
     }
-    public void collapseDescription(String title, String description) {
-        onView(allOf(newsCard,
+
+    public void collapseDescriptionNews(String title, String description) {
+        onView(CoreMatchers.allOf(newsCard,
                 hasDescendant(Matchers.allOf(newsTitle,
                         withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                         withText(title))),
@@ -132,30 +125,32 @@ public class NewsPage {
                         withEffectiveVisibility(ViewMatchers.Visibility.GONE),
                         withText(containsString(description))))))
                 .check(matches(isDisplayed()));
-
     }
 
-    public void filterNews(String category, String startDate, String endDate) {
+    public void filterNewsPage(String category, String startDate, String endDate) {
         filterButton.check(matches(isDisplayed())).perform(click());
         filterCategoryField.perform(replaceText(category));
         filterStartDate.perform(replaceText(startDate));
         filterEndDate.perform(replaceText(endDate));
     }
 
-    public void clickSaveFilterButton() {
+    public void clickSaveFilterButtonNews() {
         saveFilterButton.perform(click());
     }
 
-    public void clickCancelFilterButton() {
+    public void clickCancelFilterButtonNews() {
         cancelFilterButton.perform(click());
     }
 
+
     //Проверка текста ошибки
-    public void errorTextMessage(String text) {
+    public void errorTextMessageNews(String text) {
         onView(withText(text))
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));
+        onView(withId(android.R.id.button1)).perform(click());
     }
+
 
 }
 

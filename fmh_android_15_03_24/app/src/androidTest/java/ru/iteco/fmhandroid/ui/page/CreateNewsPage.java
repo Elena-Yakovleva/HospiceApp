@@ -1,6 +1,5 @@
 package ru.iteco.fmhandroid.ui.page;
 
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
@@ -19,12 +18,12 @@ import android.view.View;
 import androidx.test.espresso.ViewInteraction;
 
 import org.hamcrest.Matchers;
+
 import ru.iteco.fmhandroid.R;
 
 
 public class CreateNewsPage {
     // Элементы страницы
-
     private final ViewInteraction addNewsButton = onView(allOf(withId(R.id.add_news_image_view), isDisplayed()));
 
     // Элементы формы добавления новости
@@ -43,8 +42,6 @@ public class CreateNewsPage {
     private final ViewInteraction cancelButton = onView(withId(R.id.cancel_button));
     private final ViewInteraction cancelButtonCancel = onView(allOf(withId(android.R.id.button2), withText("CANCEL")));
     private final ViewInteraction cancelButtonOk = onView(allOf(withId(android.R.id.button1), withText("OK")));
-
-
     private View decorView;
 
     //Загрузка страницы
@@ -63,7 +60,6 @@ public class CreateNewsPage {
         switcher.check(matches(isDisplayed()));
         saveButton.check(matches(isDisplayed()));
         cancelButton.check(matches(isDisplayed()));
-
     }
 
     // Добавить новость
@@ -81,6 +77,7 @@ public class CreateNewsPage {
         // ввод текста
         inputDescription.perform(replaceText(text));
     }
+
     public void saveAddNews() {
         saveButton.perform(click());
     }
@@ -89,20 +86,11 @@ public class CreateNewsPage {
         cancelButton.perform(click());
         cancelButtonOk.perform(click());
     }
+
     //Проверка текста ошибки
-    public void errorTextMessage(String text) {
+    public void errorTextMessageCreateNews(String text) {
         onView(withText(text))
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));
     }
-
-
-
-
-
-
-
-
-
-
 }

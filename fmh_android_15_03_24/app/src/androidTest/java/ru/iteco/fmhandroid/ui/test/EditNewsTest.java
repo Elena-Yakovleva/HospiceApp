@@ -2,14 +2,12 @@ package ru.iteco.fmhandroid.ui.test;
 
 import static ru.iteco.fmhandroid.ui.data.DataHelper.savingFailedError;
 
-import android.service.controls.Control;
 import android.view.View;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,6 +21,7 @@ import ru.iteco.fmhandroid.ui.page.CreateNewsPage;
 import ru.iteco.fmhandroid.ui.page.EditNewsPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
+
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class EditNewsTest {
@@ -33,6 +32,12 @@ public class EditNewsTest {
     EditNewsPage editNews = new EditNewsPage();
     ControlPanelPage controlPanelPage = new ControlPanelPage();
     private View decorView;
+    int position = DataHelper.getNumberCard();
+    String category = DataHelper.getDefaultCategory(position);
+    String title = DataHelper.getOwnTitle();
+    String date = DataHelper.currentDate();
+    String time = DataHelper.currentTime();
+    String description = DataHelper.getDescription();
 
 
     @Rule
@@ -55,217 +60,147 @@ public class EditNewsTest {
 
     }
 
-
-
     @Test
     //Test Case 62 "Изменить категорию публикации на доступную из списка по умолчанию"
     public void shouldEditingNewsCategory() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-        String category = DataHelper.getDefaultCategory(position);
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        int position1 = DataHelper.getNumberCard();
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
-        editNews.changeIfFieldInNewsForm(editNews.fieldCategory(), category);
-        newsPage.selectNews(title);
+        editNews.changeIfFieldInNewsForm(editNews.fieldCategory(), DataHelper.getDefaultCategory(position1));
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
+
     @Test
     //Test Case 63 "Изменить категорию публикации на свою"
     public void shouldNotEditingNewsCategoryToOurOwnText() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-        String category = "aaaaa";
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        String category1 = "aaaaa";
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
-        editNews.changeIfFieldInNewsForm(editNews.fieldCategory(), category);
+        editNews.changeIfFieldInNewsForm(editNews.fieldCategory(), category1);
         editNews.errorTextMessage(savingFailedError());
-
+        editNews.deleteNewsButton(title);
     }
 
     @Test
     //Test Case 64 "Изменить титул публикации"
     public void shouldEditingNewsTitle() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-        String title2 = "титул изменен на: " + DataHelper.getOwnTitle();
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        String title2 = "титул изменен на: " + title;
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldTitle(), title2);
-        newsPage.selectNews(title2);
+        controlPanelPage.selectNews(title2);
         editNews.deleteNewsButton(title2);
     }
+
     @Test
     //Test Case 65 "Изменить дату публикации на более позднюю от указанной"
     public void shouldEditingNewsDateAnFutureDate() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle() + " " + DataHelper.currentDate();
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        String title = "Дата создания новости: " + DataHelper.currentDate();
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldDate(), DataHelper.getFutureDate(5));
-        newsPage.selectNews(title);
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 
     @Test
     //Test Case 66 "Изменить дату публикации на более раннюю от указанной "
     public void shouldEditingNewsDateAnLastDate() {
-        int position = DataHelper.getNumberCard();
-        String title =  DataHelper.getOwnTitle() + " " + DataHelper.currentDate();
-        String newDate = DataHelper.getOwnDate(5,3);
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.getFutureDate(5),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        String title = "Дата создания новости: " + DataHelper.currentDate();
+        String newDate = DataHelper.getOwnDate(5, 3);
+        createNewsPage.addNews(category, title, DataHelper.getFutureDate(5), time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldDate(), newDate);
-        newsPage.selectNews(title);
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 
     @Test
     //Test Case 68 "Изменить время публикации на будущее"
     public void settingFutureTimeForNews() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle() + " " + DataHelper.currentTime();
+        String title = "Время создания новости: " + DataHelper.currentTime();
         String newTime = DataHelper.futureTime(5);
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeIfFieldInNewsForm(editNews.fieldTime(), newTime);
-        newsPage.selectNews(title);
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
+
     @Test
     //Test Case 69 "Изменить текст публикации"
     public void shouldEditingNewsDescription() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
-        editNews.changeIfFieldInNewsForm(editNews.fieldDescription(),  "текст изменен " + DataHelper.currentTime());
-        newsPage.selectNews(title);
+        editNews.changeIfFieldInNewsForm(editNews.fieldDescription(), "текст изменен " + DataHelper.currentTime());
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
+
     @Test
     //Test Case 70 "Изменить статус публикации на «Not active"
     public void changePublicationStatusFromActiveToNotActive() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeStatus();
-        newsPage.checkStatus(title,"NOT ACTIVE");
-        newsPage.selectNews(title);
+        controlPanelPage.checkStatus(title, "NOT ACTIVE");
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
+
     @Test
     //Test Case 71 "Изменить статус публикации на «Аctive»"
     public void changePublicationStatusFromNotActiveToActive() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
         editNews.changeStatus();
-        newsPage.checkStatus(title,"NOT ACTIVE");
+        controlPanelPage.checkStatus(title, "NOT ACTIVE");
         editNews.editNewsButton(title);
         editNews.changeStatus();
-        newsPage.checkStatus(title,"ACTIVE");
-        newsPage.selectNews(title);
+        controlPanelPage.checkStatus(title, "ACTIVE");
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 
     @Test
     //Test Case 72 "Не сохранять внесенные изменения по кнопке «Cancel»»"
     public void cancelButtonShouldNotSaveChanges() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
         String title2 = DataHelper.getOwnTitle() + " " + DataHelper.currentDate();
-
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
         editNews.editNewsButton(title);
-        editNews.cancelChangeIfFieldInNewsForm(editNews.fieldTitle(),title2);
-        newsPage.selectNews(title);
+        editNews.cancelChangeIfFieldInNewsForm(editNews.fieldTitle(), title2);
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
-
     }
 
     @Test
     //Test Case 73 "Удалить новость"
     public void shouldDeleteNews() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
         createNewsPage.controlPanelLoad();
-        newsPage.selectNews(title);
+        controlPanelPage.selectNews(title);
         editNews.deleteNewsButton(title);
     }
 }

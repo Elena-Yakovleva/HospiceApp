@@ -12,18 +12,19 @@ import org.junit.runner.RunWith;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.page.AboutPage;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
+import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
 import ru.iteco.fmhandroid.ui.page.OurMissionPage;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LogOutAppTest {
+public class AppBarPageTest {
     MainPage mainPage = new MainPage();
     AuthPage authPage = new AuthPage();
     NewsPage newsPage = new NewsPage();
-    AboutPage aboutPage = new AboutPage();
     OurMissionPage ourMissionPage = new OurMissionPage();
+    ControlPanelPage controlPanelPage = new ControlPanelPage();
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
@@ -63,6 +64,14 @@ public class LogOutAppTest {
         newsPage.newsPageVisible();
         newsPage.newsPageLogOutButton();
         authPage.authPageVisible();
+    }
+
+    @Test
+    // Test Case - 42 "Переход в контрольную панель по кнопке Control panel"
+    public void shouldOpenControlPanelNewsPage() {
+        mainPage.mainPageMenuNewsButon();
+        newsPage.newsPageControlPanelButton();
+        controlPanelPage.controlPanelVisible();
     }
 
 }

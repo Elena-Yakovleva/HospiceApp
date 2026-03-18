@@ -14,7 +14,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
-
 import android.view.View;
 
 import androidx.test.espresso.ViewInteraction;
@@ -22,11 +21,9 @@ import androidx.test.espresso.ViewInteraction;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
-
 import ru.iteco.fmhandroid.R;
 
 public class EditNewsPage {
-
     //Элементы страницы
     private static final Matcher<View> deleteButton = withId(R.id.delete_news_item_image_view);
     private static final Matcher<View> editButton = withId(R.id.edit_news_item_image_view);
@@ -45,7 +42,6 @@ public class EditNewsPage {
 
     private View decorView;
 
-
     public void deleteNewsButton(String string) {
         //удаляем новость
         onView(allOf(deleteButton, withContentDescription("News delete button"),
@@ -59,7 +55,6 @@ public class EditNewsPage {
         //нажимаем редактировать
         onView(allOf(editButton, withContentDescription("News editing button"),
                 hasSibling(withText(string)))).perform(click());
-
     }
 
     public void changeIfFieldInNewsForm(Matcher<View> field, String text) {
@@ -67,6 +62,7 @@ public class EditNewsPage {
         onView(field).check(matches(withText(text)));
         saveButton.perform(click());
     }
+
     public void cancelChangeIfFieldInNewsForm(Matcher<View> field, String text) {
         onView(field).perform(replaceText(text));
         onView(field).check(matches(withText(text)));
@@ -79,15 +75,19 @@ public class EditNewsPage {
     public Matcher<View> fieldCategory() {
         return inputCategory;
     }
+
     public Matcher<View> fieldTitle() {
         return inputTitle;
     }
+
     public Matcher<View> fieldDate() {
         return inputDate;
     }
+
     public Matcher<View> fieldTime() {
         return inputTime;
     }
+
     public Matcher<View> fieldDescription() {
         return inputDescription;
     }
@@ -102,10 +102,8 @@ public class EditNewsPage {
         onView(withText(text))
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));
+        cancelButton.perform(click());
+        cancelButtonOk.perform(click());
     }
-
-
-
-
 
 }

@@ -1,4 +1,5 @@
 package ru.iteco.fmhandroid.ui.test;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import org.junit.Before;
@@ -10,18 +11,17 @@ import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.page.AboutPage;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
+
 import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasData;
+
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
-import android.content.Intent;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-
 public class AboutPageTest {
 
     AuthPage authPage = new AuthPage();
@@ -33,7 +33,7 @@ public class AboutPageTest {
             new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
-    public void setup(){
+    public void setup() {
         try {
             mainPage.mainPageLoad();
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class AboutPageTest {
 
     @Test
     //Test Case - 26 "Переход по ссылке  на соглашение о конфиденциальности (Privacy Policy)"
-    public void shouldGoPrivacyPolicy(){
+    public void shouldGoPrivacyPolicy() {
         aboutPage.aboutPagePrivacyPolicy();
         intended(hasData("https://vhospice.org/#/privacy-policy"));
         Intents.release();
@@ -54,16 +54,15 @@ public class AboutPageTest {
 
     @Test
     //Test Case - 27 "Переход по ссылке  на пользовательское соглашение (Terms of use)"
-    public void shouldGoTermsOfUse(){
+    public void shouldGoTermsOfUse() {
         aboutPage.aboutPageTermsOfUse();
         intended(hasData("https://vhospice.org/#/terms-of-use"));
         Intents.release();
-
     }
 
     @Test
     //Test Case - 28 "Возврат на страницу Main через кнопку Назад"
-    public void shouldGoBack(){
+    public void shouldGoBack() {
         aboutPage.backPageButton();
         mainPage.mainPageVisible();
     }

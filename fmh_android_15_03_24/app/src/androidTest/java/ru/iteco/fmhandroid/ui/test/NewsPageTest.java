@@ -14,6 +14,7 @@ import ru.iteco.fmhandroid.ui.data.DataHelper;
 import ru.iteco.fmhandroid.ui.page.AboutPage;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
 import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
+import ru.iteco.fmhandroid.ui.page.EditNewsPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
 import ru.iteco.fmhandroid.ui.page.CreateNewsPage;
@@ -31,6 +32,15 @@ public class NewsPageTest {
     OurMissionPage ourMissionPage = new OurMissionPage();
     CreateNewsPage createNewsPage = new CreateNewsPage();
     ControlPanelPage controlPanelPage = new ControlPanelPage();
+    EditNewsPage editNews = new EditNewsPage();
+    int position = DataHelper.getNumberCard();
+    String category = DataHelper.getDefaultCategory(position);
+    String title = DataHelper.getOwnTitle();
+    String date = DataHelper.currentDate();
+    String time = DataHelper.currentTime();
+    String description = DataHelper.getDescription();
+    String startDate = DataHelper.currentDate();
+    String endDate = DataHelper.currentDate();
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
@@ -77,134 +87,102 @@ public class NewsPageTest {
     }
 
     @Test
-    // Test Case - 34 "Просмотр новости на странице"
-    public void shouldExpandAndCollapseNewsInNewsPage() {
-        int position = DataHelper.getNumberCard();
-        String title = DataHelper.getOwnTitle();
-        String description = DataHelper.getDescription();
+    // Test Case - 33 "Переход на страницу OurMission, через кнопку OurMission "
+    public void test(){
+        newsPage.newsPageOurMissionButton();
+        ourMissionPage.ourMissionPageVisible();
+    }
 
+    @Test
+    // Test Case - 34 "Просмотр новостей на странице News"
+    public void shouldExpandAndCollapseNews() {
         newsPage.newsPageControlPanelButton();
         controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(DataHelper.getDefaultCategory(position),
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                description);
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
-        newsPage.selectNews(title);
-        newsPage.expandDescription(title, description);
-        newsPage.selectNews(title);
-        newsPage.collapseDescription(title,description);
+        controlPanelPage.selectNews(title);
+        controlPanelPage.controlPanelMenuNewsButton();
+        newsPage.selectNewsInNewsPage(title);
+        newsPage.expandDescriptionNews(title, description);
+        newsPage.selectNewsInNewsPage(title);
+        newsPage.collapseDescriptionNews(title,description);
+        newsPage.newsPageControlPanelButton();
+        editNews.deleteNewsButton(title);
+
     }
     @Test
-    // Test Case - 36 "Фильтрация новостей по выбранной категории с выбранными датами «от» и «до»"
+    // Test Case - 36 "Фильтрация новостей на странице News по выбранной категории из доступных по умолчанию с выбранными датами «от» и «до» "
     public void shouldFilterNewsByDefaultCategoryWithSelectedDateRange() {
-        int position = DataHelper.getNumberCard();
-        String category = DataHelper.getDefaultCategory(position);
-        String title = DataHelper.getOwnTitle();
-        String startDate = DataHelper.currentDate();
-        String endDate = DataHelper.currentDate();
-
         newsPage.newsPageControlPanelButton();
         controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category,
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
-        newsPage.filterNews(category,startDate,endDate);
-        newsPage.clickSaveFilterButton();
-        newsPage.selectNews(title);
+        controlPanelPage.controlPanelMenuNewsButton();
+        newsPage.filterNewsPage(category,startDate,endDate);
+        newsPage.clickSaveFilterButtonNews();
+        newsPage.selectNewsInNewsPage(title);
+        newsPage.newsPageControlPanelButton();
+        editNews.deleteNewsButton(title);
     }
     @Test
-    // Test Case - 37 "Фильтрация новостей по выбранной категории без указания дат"
+    // Test Case - 37 "Фильтрация новостей на странице News по выбранной категории без указания дат"
     public void shouldFilterNewsByDefaultCategoryWithNotSelectedDateRange() {
-        int position = DataHelper.getNumberCard();
-        String category = DataHelper.getDefaultCategory(position);
-        String title = DataHelper.getOwnTitle();
-        String startDate = DataHelper.getEmptyDate();
-        String endDate = DataHelper.getEmptyDate();
-
         newsPage.newsPageControlPanelButton();
         controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category,
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
-        newsPage.filterNews(category,startDate,endDate);
-        newsPage.clickSaveFilterButton();
-        newsPage.selectNews(title);
+        controlPanelPage.controlPanelMenuNewsButton();
+        newsPage.filterNewsPage(category,DataHelper.getEmptyDate(),DataHelper.getEmptyDate());
+        newsPage.clickSaveFilterButtonNews();
+        newsPage.selectNewsInNewsPage(title);
+        newsPage.newsPageControlPanelButton();
+        editNews.deleteNewsButton(title);
     }
     @Test
     // Test Case - 38 "Фильтрация новостей по выбранной категории с только выбранной датой «от»"
     public void shouldFilterNewsByDefaultCategoryWithSelectedStartDate() {
-        int position = DataHelper.getNumberCard();
-        String category = DataHelper.getDefaultCategory(position);
-        String title = DataHelper.getOwnTitle();
-        String startDate = DataHelper.currentDate();
-        String endDate = DataHelper.getEmptyDate();
-
         newsPage.newsPageControlPanelButton();
         controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category,
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
-        newsPage.filterNews(category,startDate,endDate);
-        newsPage.clickSaveFilterButton();
-        newsPage.errorTextMessage(DataHelper.wrondPeriodError());
-
+        controlPanelPage.controlPanelMenuNewsButton();
+        newsPage.filterNewsPage(category,startDate,DataHelper.getEmptyDate());
+        newsPage.clickSaveFilterButtonNews();
+        newsPage.errorTextMessageNews(DataHelper.wrondPeriodError());
+        newsPage.clickCancelFilterButtonNews();
+        newsPage.newsPageControlPanelButton();
+        editNews.deleteNewsButton(title);
     }
     @Test
     // Test Case - 39 "Фильтрация новостей по выбранной категории с только выбранной датой «до»"
     public void shouldFilterNewsByDefaultCategoryWithSelectedEndDate() {
-        int position = DataHelper.getNumberCard();
-        String category = DataHelper.getDefaultCategory(position);
-        String title = DataHelper.getOwnTitle();
-        String startDate = DataHelper.getEmptyDate();
-        String endDate = DataHelper.currentDate();
-
         newsPage.newsPageControlPanelButton();
         controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category,
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
-        newsPage.filterNews(category,startDate,endDate);
-        newsPage.clickSaveFilterButton();
-        newsPage.errorTextMessage(DataHelper.wrondPeriodError());
-
+        controlPanelPage.controlPanelMenuNewsButton();
+        newsPage.filterNewsPage(category,DataHelper.getEmptyDate(),endDate);
+        newsPage.clickSaveFilterButtonNews();
+        newsPage.errorTextMessageNews(DataHelper.wrondPeriodError());
+        newsPage.clickCancelFilterButtonNews();
+        newsPage.newsPageControlPanelButton();
+        editNews.deleteNewsButton(title);
     }
     @Test
-    // Test Case - 40 "Отмена внесенной информации в фильтре по кнопке «Cancel»"
+    // Test Case - 40 "Отмена внесенной информации в фильтре новостей по кнопке «Cancel»"
     public void shouldDiscardFilterChangesWhenCancelClicked() {
-        int position = DataHelper.getNumberCard();
-        String category = DataHelper.getDefaultCategory(position);
-        String title = DataHelper.getOwnTitle();
-        String startDate = DataHelper.currentDate();
-        String endDate = DataHelper.currentDate();
-
         newsPage.newsPageControlPanelButton();
         controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category,
-                title,
-                DataHelper.currentDate(),
-                DataHelper.currentTime(),
-                DataHelper.getDescription());
+        createNewsPage.addNews(category, title, date, time, description);
         createNewsPage.saveAddNews();
-        newsPage.filterNews(category, startDate, endDate);
-        newsPage.clickCancelFilterButton();
+        controlPanelPage.controlPanelMenuNewsButton();
+        newsPage.filterNewsPage(category,startDate,endDate);
+        newsPage.clickCancelFilterButtonNews();
+        newsPage.selectNewsInNewsPage(title);
+        newsPage.newsPageControlPanelButton();
+        editNews.deleteNewsButton(title);
 
     }
-
-
 
 
 }

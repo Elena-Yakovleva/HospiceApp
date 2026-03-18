@@ -25,7 +25,6 @@ public class AboutPage {
     public final ViewInteraction aboutPageBackButton = onView(withId(R.id.about_back_image_button));
 
 
-
     // Проверка видимости элементов
 
     public void aboutPageVisible() {
@@ -34,7 +33,7 @@ public class AboutPage {
         title.check(matches(withText("Version:")));
     }
 
-    public void backPageButton(){
+    public void backPageButton() {
         aboutPageBackButton.check(matches(isDisplayed()))
                 .check(matches(isClickable()));
         aboutPageBackButton.perform(click());

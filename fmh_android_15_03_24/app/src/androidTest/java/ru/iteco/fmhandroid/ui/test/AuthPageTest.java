@@ -18,9 +18,7 @@ import ru.iteco.fmhandroid.ui.page.MainPage;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-
 public class AuthPageTest {
-
     private final AuthPage authPage = new AuthPage();
     private final MainPage mainPage = new MainPage();
     private View decorView;
@@ -38,14 +36,12 @@ public class AuthPageTest {
             mainPage.mainPageLogOutButon();
             authPage.authPageVisible();
         }
-
     }
 
     @Test
     //Test Case - 5 "Авторизация с валидным логином и паролем"
     public void successfulAuthorizationTest() {
         authPage.authUser();
-
     }
 
     @Test

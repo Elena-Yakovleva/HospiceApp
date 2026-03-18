@@ -23,13 +23,11 @@ import ru.iteco.fmhandroid.ui.data.DataHelper;
 import ru.iteco.fmhandroid.ui.data.Utils;
 
 public class AuthPage {
-
     //Элементы страницы
     private final ViewInteraction title = onView(withText("Authorization"));
     private final ViewInteraction login = onView(withId(R.id.login_text_input_layout));
     private final ViewInteraction password = onView(withId(R.id.password_text_input_layout));
     private final ViewInteraction button = onView(withId(R.id.enter_button));
-
     private View decorView;
 
     // Подтверждение загрузки страницы
@@ -69,6 +67,7 @@ public class AuthPage {
         clickButton();
         return new MainPage();
     }
+
     public void invalidUser(String wrongLogin, String wrongPassword) {
         inputLogin(wrongLogin);
         inputPassword(wrongPassword);

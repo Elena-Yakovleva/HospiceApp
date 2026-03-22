@@ -133,19 +133,19 @@
 
 ##### Окружение и инструменты
 
-MSI i9-12900HX 32ГБ x64 Windows 11 Домашняя
-HUAWEI nova 9SE 8/128Gb 6,78"
-Эмулятор Pixel 4 API 29 Android 10.0("Q") x86
+- MSI i9-12900HX 32ГБ x64 Windows 11 Домашняя
+- HUAWEI nova 9SE 8/128Gb 6,78"
+- Эмулятор Pixel 4 API 29 Android 10.0("Q") x86
 
-Android Studio Panda1 2025.3.1
-JDK 17 версия 17.0.14
-Java 8
-Espresso
-Allure
-GitHub
+- Android Studio Panda1 2025.3.1
+- JDK 17 версия 17.0.14
+- Java 8
+- Espresso
+- Allure
+- GitHub
 
 ##### Тестовая документация на проекте
 
 - [Чек-лист](https://github.com/Elena-Yakovleva/HospiceApp/blob/main/documentation/Check-list.xlsx)
 - [Тест-кейсы](https://github.com/Elena-Yakovleva/HospiceApp/blob/main/documentation/Cases.xlsx)
-- [Отчет]()
+- [Отчет](https://github.com/Elena-Yakovleva/HospiceApp/blob/main/documentation/Result.md)

@@ -76,10 +76,11 @@ public class AppBarPage {
         ourMissionButton.perform(click());
     }
     public void notClickableOurMissionButton() {
-        Allure.step("Подтверждаем видимость кнопки Our Mission");
-        ourMissionButton.check(matches(isDisplayed()));
-        Allure.step("Подтверждаем отсутствия кликабельности кнопки Our Mission");
-        ourMissionButton.check(matches(not(isClickable())));
+        Allure.step("Подтверждаем видимость и отсутствие кликабельности кнопки Our Mission");
+            // Проверка видимости кнопки
+            ourMissionButton.check(matches(isDisplayed()));
+            // Проверка отсутствия кликабельности
+            ourMissionButton.check(matches(not(isClickable())));
     }
 
     // Выход из приложения

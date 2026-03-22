@@ -6,25 +6,26 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Epic;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
-import ru.iteco.fmhandroid.ui.page.AboutPage;
+import ru.iteco.fmhandroid.ui.page.AppBarPage;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
-import ru.iteco.fmhandroid.ui.page.NewsPage;
 import ru.iteco.fmhandroid.ui.page.OurMissionPage;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.runner.RunWith;
-
+@Epic(value = "Страница Our Mission")
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
 public class OurMissionPageTest {
     AuthPage authPage = new AuthPage();
     MainPage mainPage = new MainPage();
-    NewsPage newsPage = new NewsPage();
-    AboutPage aboutPage = new AboutPage();
+    AppBarPage appBarPage = new AppBarPage();
     OurMissionPage ourMissionPage = new OurMissionPage();
 
     @Rule
@@ -39,39 +40,13 @@ public class OurMissionPageTest {
             authPage.authUser();
             mainPage.mainPageLoad();
         }
-        mainPage.mainPageOurMissionButton();
+        appBarPage.ourMissionButton();
         ourMissionPage.ourMissionPageVisible();
     }
 
-    @Test
-    //Test Case - 20 "Переход на страницу Main через кнопку Menu со страницы OurMission"
-    public void shouldOpenMainPageFromMenuButtonInOurMissionPage() {
-        ourMissionPage.ourMissionPageMenuMainButton();
-        mainPage.mainPageVisible();
-    }
 
     @Test
-    //Test Case - 21 "Переход на страницу News через кнопку Menu со страницы OurMission"
-    public void shouldOpenNewsPageFromMenuButtonInOurMissionPage() {
-        ourMissionPage.ourMissionPageMenuNewsButton();
-        newsPage.newsPageVisible();
-    }
-
-    @Test
-    //Test Case - 22 "Переход на страницу About, через кнопку Menu со страницы OurMission"
-    public void shouldOpenAboutPageFromMenuButtonInOurMissionPage() {
-        ourMissionPage.ourMissionPageMenuAboutButton();
-        aboutPage.aboutPageVisible();
-    }
-
-    @Test
-    //Test Case - 23 "Кнопка OurMission не активна на странице OurMission"
-    public void shouldOurMissionButtonNotClickableFromOurMissionPage() {
-        ourMissionPage.ourMissionPageOurMissionButton();
-    }
-
-    @Test
-    //Test Case - 25 "Развернуть и свернуть цитату на странице OurMission"
+    @DisplayName("Test Case - 25 Развернуть и свернуть цитату на странице OurMission")
     public void shouldExpandAndCollapseQuoteOurMission() {
         ourMissionPage.expandQuoteOurMission();
         ourMissionPage.collapseQuoteOurMission();

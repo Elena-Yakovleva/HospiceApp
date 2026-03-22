@@ -19,6 +19,7 @@ import androidx.test.espresso.ViewInteraction;
 
 import org.hamcrest.Matchers;
 
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 
@@ -46,12 +47,14 @@ public class CreateNewsPage {
 
     //Загрузка страницы
     public void controlPanelLoad() {
+        Allure.step("Ожидаем загрузку страницы Сontrol Panel");
         onView(isRoot()).perform(waitDisplayed(R.id.add_news_image_view, 8000));
     }
 
     // Видимость элементов
 
     public void creatingNewsVisible() {
+        Allure.step("Проверяем видимость элементов формы создания публикации");
         fieldCategory.check(matches(isDisplayed()));
         fieldTitle.check(matches(isDisplayed()));
         fieldDate.check(matches(isDisplayed()));
@@ -64,31 +67,34 @@ public class CreateNewsPage {
 
     // Добавить новость
     public void addNews(String category, String title, String data, String time, String text) {
+        Allure.step("Нажимаем на кнопку создания публикации");
         addNewsButton.perform(click());
         creatingNewsVisible();
-        // ввод категории
+        Allure.step("Вводим название категории: " + category);
         inputCategory.perform(replaceText(category));
-        // ввод титула;
+        Allure.step("Вводим заголовок публикации: " + title);
         inputTitle.perform(replaceText(title));
-        // ввод даты
+        Allure.step("Указываем дату публикации: " + data);
         inputDate.perform(replaceText(data));
-        // ввод времени
+        Allure.step("Указываем время публикации: " +time);
         inputTime.perform(replaceText(time));
-        // ввод текста
+        Allure.step("Добавляем описание новости: " + text);
         inputDescription.perform(replaceText(text));
     }
 
     public void saveAddNews() {
+        Allure.step("Подтверждаем сохранение публикации кнопкой Save");
         saveButton.perform(click());
     }
 
     public void cancelAddNews() {
+        Allure.step("Отменяем создание публикации кнопкой Cancel");
         cancelButton.perform(click());
         cancelButtonOk.perform(click());
     }
 
-    //Проверка текста ошибки
     public void errorTextMessageCreateNews(String text) {
+        Allure.step("Подтверждаем наличие сообщения об ошибке с текстом: " + text);
         onView(withText(text))
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));

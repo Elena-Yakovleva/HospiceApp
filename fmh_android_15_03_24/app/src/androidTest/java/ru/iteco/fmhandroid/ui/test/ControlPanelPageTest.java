@@ -10,22 +10,27 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Epic;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.DataHelper;
+import ru.iteco.fmhandroid.ui.page.AppBarPage;
 import ru.iteco.fmhandroid.ui.page.AuthPage;
 import ru.iteco.fmhandroid.ui.page.ControlPanelPage;
 import ru.iteco.fmhandroid.ui.page.CreateNewsPage;
 import ru.iteco.fmhandroid.ui.page.EditNewsPage;
 import ru.iteco.fmhandroid.ui.page.MainPage;
 import ru.iteco.fmhandroid.ui.page.NewsPage;
-
+@Epic(value = "Страница Control Panel")
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
 public class ControlPanelPageTest {
 
     MainPage mainPage = new MainPage();
     NewsPage newsPage = new NewsPage();
     AuthPage authPage = new AuthPage();
+    AppBarPage appBarPage = new AppBarPage();
     CreateNewsPage createNewsPage = new CreateNewsPage();
     ControlPanelPage controlPanelPage = new ControlPanelPage();
     EditNewsPage editNews = new EditNewsPage();
@@ -52,8 +57,12 @@ public class ControlPanelPageTest {
             mainPage.mainPageLoad();
         }
 
-        mainPage.mainPageMenuNewsButon();
+        appBarPage.menuNewsButton();
         newsPage.newsPageLoad();
+        newsPage.newsPageControlPanelButton();
+        controlPanelPage.controlPanelVisible();
+        createNewsPage.addNews(category, title, date, time, description);
+        createNewsPage.saveAddNews();
     }
 
     @After
@@ -62,12 +71,8 @@ public class ControlPanelPageTest {
     }
 
     @Test
-    // Test Case - 43 "Просмотр новостей на странице Control panel"
+    @DisplayName("Test Case - 43: Просмотр новостей на странице Control panel")
     public void shouldExpandAndCollapseNewsInControlPanel() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.selectNews(title);
         controlPanelPage.expandDescription(title, description);
         controlPanelPage.selectNews(title);
@@ -76,62 +81,42 @@ public class ControlPanelPageTest {
     }
 
     @Test
-    // Test Case - 45 "Фильтрация новостей по выбранной категории с выбранными датами «от» и «до»"
+    @DisplayName("Test Case - 45: Фильтрация новостей по выбранной категории с выбранными датами «от» и «до»")
     public void shouldFilterNewsControlPanelByDefaultCategoryWithSelectedDateRange() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.filterNews(category, startDate, endDate);
         controlPanelPage.clickSaveFilterButton();
         controlPanelPage.selectNews(title);
     }
 
     @Test
-    // Test Case - 46 "Фильтрация новостей по выбранной категории без указания дат"
+    @DisplayName("Test Case - 46: Фильтрация новостей по выбранной категории без указания дат")
     public void shouldFilterNewsControlPanelByDefaultCategoryWithNotSelectedDateRange() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.filterNews(category, DataHelper.getEmptyDate(), DataHelper.getEmptyDate());
         controlPanelPage.clickSaveFilterButton();
         controlPanelPage.selectNews(title);
     }
 
     @Test
-    // Test Case - 47 "Фильтрация новостей по выбранной категории с только выбранной датой «от»"
+    @DisplayName("Test Case - 47: Фильтрация новостей по выбранной категории с только выбранной датой «от»")
     public void shouldFilterNewsControlPanelByDefaultCategoryWithSelectedStartDate() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.filterNews(category, startDate, DataHelper.getEmptyDate());
         controlPanelPage.clickSaveFilterButton();
-        controlPanelPage.errorTextMessage(DataHelper.wrondPeriodError());
+        controlPanelPage.errorTextMessage(DataHelper.wrongPeriodError());
         controlPanelPage.clickCancelFilterButton();
     }
 
     @Test
-    // Test Case - 48 "Фильтрация новостей по выбранной категории с только выбранной датой «до»"
+    @DisplayName("Test Case - 48: Фильтрация новостей по выбранной категории с только выбранной датой «до»")
     public void shouldFilterNewsControlPanelByDefaultCategoryWithSelectedEndDate() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.filterNews(category, DataHelper.getEmptyDate(), endDate);
         controlPanelPage.clickSaveFilterButton();
-        controlPanelPage.errorTextMessage(DataHelper.wrondPeriodError());
+        controlPanelPage.errorTextMessage(DataHelper.wrongPeriodError());
         controlPanelPage.clickCancelFilterButton();
     }
 
     @Test
-    // Test Case - 49 "Фильтрация новостей по выбранной категории с заполненным чек-боксом «Active»"
+    @DisplayName("Test Case - 49: Фильтрация новостей по выбранной категории с заполненным чек-боксом «Active»")
     public void shouldFilterNewsControlPanelByDefaultCategoryWithActiveStatus() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.filterNews(category, startDate, endDate);
         controlPanelPage.clickCheckBoxInActive();
         controlPanelPage.clickSaveFilterButton();
@@ -139,12 +124,8 @@ public class ControlPanelPageTest {
     }
 
     @Test
-    // Test Case - 50 "Фильтрация новостей по выбранной категории с заполненным чек-боксом «Not_Active»"
+    @DisplayName("Test Case - 50: Фильтрация новостей по выбранной категории с заполненным чек-боксом «Not_Active»")
     public void shouldFilterNewsControlPanelByDefaultCategoryWithNotActiveStatus() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         editNews.editNewsButton(title);
         editNews.changeStatus();
         controlPanelPage.filterNews(category, startDate, endDate);
@@ -154,27 +135,19 @@ public class ControlPanelPageTest {
     }
 
     @Test
-    // Test Case - 51 "Фильтрация новостей без заполненных чек-боксов"
+    @DisplayName("Test Case - 51 :Фильтрация новостей без заполненных чек-боксов")
     public void shouldFilterNewsControlPanelByDefaultCategoryWithNotCheckBox() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.filterNews(category, startDate, endDate);
         controlPanelPage.clickCheckBoxInActive();
         controlPanelPage.clickCheckBoxInActive();
         controlPanelPage.clickSaveFilterButton();
-        controlPanelPage.message();
+        controlPanelPage.errorMessage();
     }
 
 
     @Test
-    // Test Case - 52 "Отмена внесенной информации в фильтре по кнопке «Cancel»"
+    @DisplayName("Test Case - 52: Отмена внесенной информации в фильтре по кнопке «Cancel»")
     public void shouldDiscardFilterChangesWhenCancelClicked() {
-        newsPage.newsPageControlPanelButton();
-        controlPanelPage.controlPanelVisible();
-        createNewsPage.addNews(category, title, date, time, description);
-        createNewsPage.saveAddNews();
         controlPanelPage.filterNews(category, startDate, endDate);
         controlPanelPage.clickCancelFilterButton();
     }

@@ -17,10 +17,12 @@ import static org.hamcrest.Matchers.allOf;
 import android.view.View;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.action.ViewActions;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class EditNewsPage {
@@ -43,67 +45,83 @@ public class EditNewsPage {
     private View decorView;
 
     public void deleteNewsButton(String string) {
-        //удаляем новость
+        Allure.step("Удаляем новость с заголовком: " + string);
         onView(allOf(deleteButton, withContentDescription("News delete button"),
                 hasSibling(withText(string)))).perform(click());
-        onView(allOf(withId(android.R.id.button1), withText("OK"))).perform(click());
-        //проверяем удаление
+        cancelButtonOk.perform(click());
+        Allure.step("Убеждаемся, что новость с заголовком: " + string + " отсутствует в списке");
         onView(allOf(withText(string), isDisplayed())).check(doesNotExist());
     }
 
     public void editNewsButton(String string) {
-        //нажимаем редактировать
+        Allure.step("Нажимаем на кнопку Редактировать у новости с заголовком: " + string);
         onView(allOf(editButton, withContentDescription("News editing button"),
                 hasSibling(withText(string)))).perform(click());
     }
 
-    public void changeIfFieldInNewsForm(Matcher<View> field, String text) {
-        onView(field).perform(replaceText(text));
+    public void changeIfFieldInNewsForm(String fieldName, Matcher<View> field, String text) {
+        Allure.step("Вносим в поле: " + fieldName + " следующие данные: " + text);
+        onView(field).perform(replaceText(text)).perform(ViewActions.closeSoftKeyboard());;
         onView(field).check(matches(withText(text)));
+        Allure.step("Сохраняем изменения кнопкой Save");
         saveButton.perform(click());
     }
 
-    public void cancelChangeIfFieldInNewsForm(Matcher<View> field, String text) {
-        onView(field).perform(replaceText(text));
+    public void cancelChangeIfFieldInNewsForm(String fieldName, Matcher<View> field, String text) {
+        Allure.step("Вносим в поле: " + fieldName + " следующие данные: " + text);
+        onView(field).perform(replaceText(text)).perform(ViewActions.closeSoftKeyboard());
         onView(field).check(matches(withText(text)));
+        Allure.step("Отменяем изменение кнопкой Cancel");
         cancelButton.perform(click());
         cancelButtonOk.perform(click());
+        Allure.step("Подтверждаем отсутствие изменений у поля: " + field);
         onView(allOf(withText(text), isDisplayed())).check(doesNotExist());
     }
 
     //Элементы форм ввода
     public Matcher<View> fieldCategory() {
+        Allure.step("Категория");
         return inputCategory;
     }
 
+
     public Matcher<View> fieldTitle() {
+        Allure.step("Заголовок");
         return inputTitle;
     }
 
     public Matcher<View> fieldDate() {
+        Allure.step("Дата публикации");
         return inputDate;
     }
 
     public Matcher<View> fieldTime() {
+        Allure.step("Время публикации");
         return inputTime;
     }
 
     public Matcher<View> fieldDescription() {
+        Allure.step("Описание");
         return inputDescription;
     }
 
     public void changeStatus() {
+        Allure.step("Нажимаем на переключатель для смены статуса публикации");
         switcher.perform(click());
         saveButton.perform(scrollTo(), click());
     }
 
     //Проверка текста ошибки
     public void errorTextMessage(String text) {
+        Allure.step("Подтверждаем наличие сообщения об ошибке с текстом: " + text);
         onView(withText(text))
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));
+        Allure.step("Отменяем изменения");
         cancelButton.perform(click());
         cancelButtonOk.perform(click());
     }
+
+
 
 }

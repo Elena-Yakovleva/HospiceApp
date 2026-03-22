@@ -1,23 +1,25 @@
 package ru.iteco.fmhandroid.ui.data;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
+import android.widget.TextView;
 
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 
 import androidx.test.espresso.PerformException;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.util.HumanReadables;
 import androidx.test.espresso.util.TreeIterables;
+
 import java.util.concurrent.TimeoutException;
+
+
 
 public class Utils {
 
@@ -61,44 +63,26 @@ public class Utils {
             }
         };
     }
-    public static Matcher<? super View> hasAncestor (final Matcher<View> ancestorMatcher) {
-        return new TypeSafeMatcher<View>() {
+    // извлечения текста
+    public static String getText(final Matcher<View> matcher) {
+        final String[] text = {null};
+        onView(matcher).perform(new ViewAction() {
             @Override
-            protected boolean matchesSafely(View view) {
-                View currentView = view;
-                do {
-                    currentView = (View) currentView.getParent();
-                    if (ancestorMatcher.matches(currentView)) {
-                        return true;
-                    }
-                } while (currentView != null && !(currentView instanceof ViewGroup));
-
-                return false;
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(TextView.class);
             }
 
             @Override
-            public void describeTo(Description description) {
-                description.appendText("with ancestor ");
-                ancestorMatcher.describeTo(description);
+            public String getDescription() {
+                return "Get text from view";
             }
-        };
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                text[0] = ((TextView) view).getText().toString();
+            }
+        });
+        return text[0];
     }
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
 
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
-    }
 }

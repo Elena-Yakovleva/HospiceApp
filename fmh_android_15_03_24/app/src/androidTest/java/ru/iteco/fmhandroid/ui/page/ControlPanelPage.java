@@ -3,7 +3,6 @@ package ru.iteco.fmhandroid.ui.page;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
@@ -14,6 +13,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibilit
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 
@@ -26,12 +26,13 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
+import ru.iteco.fmhandroid.ui.data.DataHelper;
+import ru.iteco.fmhandroid.ui.data.Utils;
 
 
 public class ControlPanelPage {
-    AppBarPage appBarPage = new AppBarPage();
-
     private final ViewInteraction title = onView(withText("Control panel"));
 
     // Элементы новости
@@ -48,36 +49,41 @@ public class ControlPanelPage {
     private static final ViewInteraction filterCheckBoxNotActive = onView(withId(R.id.filter_news_inactive_material_check_box));
     private static final ViewInteraction saveFilterButton = onView(withId(R.id.filter_button));
     private static final ViewInteraction cancelFilterButton = onView(withId(R.id.cancel_button));
-
+    private final ViewInteraction sortButtonNews = onView(withId(R.id.sort_news_material_button));
     private View decorView;
 
     public void controlPanelVisible() {
+        Allure.step("Подтверждаем видимость элемента страницы Control Panel");
         title.check(matches(isDisplayed()));
     }
 
-    public void controlPanelMenuNewsButton() {
-        appBarPage.MenuNewsButton();
+    public void clickSortButton() {
+        Allure.step("Нажимаем на кнопку сортировки публикаций");
+        sortButtonNews.perform(click());
     }
-
     public void selectNews(String string) {
+        Allure.step("Выбираем новость с заголовком: " + string);
         onView(allOf(newsTitle,
                 withText(string)))
                 .check(matches(isDisplayed()))
                 .perform(click());
     }
     public void selectCancelNews(String string) {
+        Allure.step("Подтверждаем отсутствие новости с заголовком: " + string);
         onView(allOf(newsTitle,
                 withText(string)))
                 .check(doesNotExist());
     }
 
     public void checkStatus(String string, String status) {
+        Allure.step("Проверяем наличие статуса: " + status + " у новости с заголовком: " + string);
         onView(allOf(newsTitle,
                 withText(string),
                 hasSibling(withText(status)))).check(matches(isDisplayed()));
     }
 
     public void expandDescription(String title, String description) {
+        Allure.step("Разворачиваем новость с заголовком: " + title + " и проверяем видимость описания");
         onView(allOf(newsCard,
                 hasDescendant(Matchers.allOf(newsTitle,
                         withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
@@ -90,51 +96,93 @@ public class ControlPanelPage {
     }
 
     public void collapseDescription(String title, String description) {
-        onView(CoreMatchers.allOf(newsCard,
-                hasDescendant(Matchers.allOf(newsTitle,
+        Allure.step("Сворачиваем новость с заголовком: " + title + " и проверяем отсутствие описания");
+        onView(allOf(newsCard,
+                hasDescendant(allOf(newsTitle,
                         withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                         withText(title))),
 
-                hasDescendant(Matchers.allOf(newsDescription,
+                hasDescendant(allOf(newsDescription,
                         withEffectiveVisibility(ViewMatchers.Visibility.GONE),
                         withText(containsString(description))))))
                 .check(matches(isDisplayed()));
     }
 
     public void filterNews(String category, String startDate, String endDate) {
+        Allure.step("Нажимаем на кнопку фильтра новостей");
         filterButton.check(matches(isDisplayed())).perform(click());
+        Allure.step("Вводим название категории: " + category);
         filterCategoryField.perform(replaceText(category));
+        Allure.step("Указываем дату начала фильтрации: " + startDate);
         filterStartDate.perform(replaceText(startDate));
+        Allure.step("Указываем дату окончания фильтрации: " + endDate);
         filterEndDate.perform(replaceText(endDate));
     }
 
     public void clickCheckBoxActive() {
+        Allure.step("Нажать на чек-бокс Active");
         filterCheckBoxActive.perform(click());
     }
 
     public void clickCheckBoxInActive() {
+        Allure.step("Нажать на чек-бокс Not Active");
         filterCheckBoxNotActive.perform(click());
     }
 
     public void clickSaveFilterButton() {
+        Allure.step("Нажимаем на кнопку Save для сохранения выбранных фильтров");
         saveFilterButton.perform(click());
     }
 
     public void clickCancelFilterButton() {
+        Allure.step("Нажимаем на кнопку Cancel для отмены сохранения фильтров");
         cancelFilterButton.perform(click());
     }
 
 
     //Проверка текста ошибки
     public void errorTextMessage(String text) {
+        Allure.step("Подтверждаем наличие сообщения об ошибке: " + text);
         onView(withText(text))
                 .inRoot(withDecorView(not(decorView)))
                 .check(matches(isDisplayed()));
         onView(withId(android.R.id.button1)).perform(click());
     }
 
-    public void message() {
+    public void errorMessage() {
+        Allure.step("Подтверждаем наличие сообщения об ошибке:" + DataHelper.nothingHereError());
         messageNotNews.matches(isDisplayed());
-        messageNotNews.matches(withText("There is nothing here yet…"));
+        messageNotNews.matches(withText(DataHelper.nothingHereError()));
+    }
+
+    public void dateVisible(String title, String date) {
+        Allure.step("Сверяем отображение даты создания (" + DataHelper.currentDate() + ") у новости с титулом: " + title+ " и ее реальным отображением в карточке новости ");
+        onView(allOf(newsCard,
+                hasDescendant(allOf(newsTitle,
+                        withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                        withText(title))),
+
+                hasDescendant(allOf(withId(R.id.news_item_publication_date_text_view),
+                        withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                        withText(containsString(date))))))
+                .check(matches(isDisplayed()));
+        /*
+        onView(allOf(newsCard,
+                hasDescendant(allOf(newsTitle,
+                        withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                        withText(title))),
+
+                hasDescendant(allOf(withId(R.id.news_item_create_date_text_view),
+                        withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                        withText(containsString(date1))))))
+                .check(matches(isDisplayed()));*/
+
+        String actualDate = Utils.getText(allOf(
+                withId(R.id.news_item_create_date_text_view),
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                hasSibling(allOf(newsTitle, withText(title)))
+
+        ));
+        assertThat(actualDate, containsString(DataHelper.currentDate()));
     }
 }

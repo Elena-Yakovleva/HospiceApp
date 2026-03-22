@@ -86,7 +86,8 @@ public class DataHelper {
         return ("Fill empty fields");
     }
     public static String savingFailedError() {return ("Saving failed. Try again later.");}
-    public static String wrondPeriodError() {return ("Wrong period");}
+    public static String wrongPeriodError() {return ("Wrong period");}
+    public static String nothingHereError() {return ("There is nothing here yet…");}
 
 
     //Выбор номера карточки с цитатой
@@ -173,10 +174,6 @@ public class DataHelper {
         return (s);
     }
     //Титул
-    public static String getDefaultTitle(int num) {
-        return DataHelper.getDefaultCategory(num);
-    }
-
     public static String getEmptyTitle() {
         return ("");
     }
@@ -190,20 +187,13 @@ public class DataHelper {
     public static String getEmptyDate() {
         return ("");
     }
-    public static String getLastDate(int num) {
-        return LocalDate.now().minusDays(num).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    }
     public static String getFutureDate(int num) {
         return LocalDate.now().plusDays(num).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
-
     public static String currentDate() {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
     //Время
-    public static String getOwnTime(String s) {
-        return (s);
-    }
     public static String getEmptyTime() {
         return ("");
     }
@@ -214,7 +204,6 @@ public class DataHelper {
         return LocalTime.now().plusHours(num).format(DateTimeFormatter.ofPattern("HH:mm"));
     }
     //Текст
-
     public static String getEmptyDescription() {
         return ("");
     }

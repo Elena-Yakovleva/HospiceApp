@@ -36,3 +36,8 @@
 ---
 
 По результату тестирования, были выявлены баги, о чем заведены баг-репорты с описанием выявленных дефектов и оформлены в разделе [Issues](https://github.com/Elena-Yakovleva/HospiceApp/issues)
+
+<img width="2156" height="1277" alt="image" src="https://github.com/user-attachments/assets/2f76fbb9-0096-40f0-87ab-391df810f78f" />
+<img width="1909" height="1191" alt="image" src="https://github.com/user-attachments/assets/ba99dd39-fa35-46d6-b48d-8dd6169ba9b6" />
+
+

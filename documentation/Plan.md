@@ -138,7 +138,7 @@
 - Эмулятор Pixel 4 API 29 Android 10.0("Q") x86
 
 - Android Studio Panda1 2025.3.1
-- JDK 17 версия 17.0.14
+- JDK corretto-15.0.2
 - Java 8
 - Espresso
 - Allure
